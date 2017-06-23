@@ -4,6 +4,7 @@ package com.chernowii.wearbttn;
  * Created by konrad on 6/23/17.
  */
 
+import android.app.Instrumentation;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -12,10 +13,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.wearable.complications.ProviderUpdateRequester;
+import android.view.InputEvent;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.inputmethod.BaseInputConnection;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 /** Receives intents on tap and causes complication states to be toggled and updated. */
 public class ComplicationToggleReceiver extends BroadcastReceiver {
@@ -46,11 +53,31 @@ public class ComplicationToggleReceiver extends BroadcastReceiver {
         Using adb shell no root needed.
         Can also try using start launcher activity or emulate power button press
          */
+        /*
+        //Root methods:
         try{
             Process su = Runtime.getRuntime().exec("/system/bin/sh -c ");
             DataOutputStream outputStream = new DataOutputStream(su.getOutputStream());
 
-            outputStream.writeBytes("input keyevent 26\n");
+            outputStream.writeBytes("input keyevent 3\n");
+            outputStream.flush();
+
+            outputStream.writeBytes("exit\n");
+            outputStream.flush();
+            su.waitFor();
+        }catch(IOException | InterruptedException e){
+            try {
+                throw new Exception(e);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        }
+        */
+        try{
+            Process su = Runtime.getRuntime().exec("su");
+            DataOutputStream outputStream = new DataOutputStream(su.getOutputStream());
+
+            outputStream.writeBytes("input keyevent 3\n");
             outputStream.flush();
 
             outputStream.writeBytes("exit\n");
