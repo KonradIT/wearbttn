@@ -7,14 +7,13 @@ import android.graphics.drawable.Icon;
 import android.support.wearable.complications.ComplicationData;
 import android.support.wearable.complications.ComplicationManager;
 import android.support.wearable.complications.ComplicationProviderService;
-import android.support.wearable.complications.ComplicationText;
 
-public class button_activity extends ComplicationProviderService {
-    /*
-    TODO:
-    * Slide from left or right of the face (like Wear Mini Launcher and other 3rd party launchers) to trigger the launcher
-    * Permanent overlay button
-     */
+/**
+ * Created by konrad on 6/24/17.
+ */
+
+public class google_assistant extends ComplicationProviderService {
+
     @Override
     public void onComplicationUpdate(int complicationId, int type, ComplicationManager manager) {
         if (type != ComplicationData.TYPE_ICON) {
@@ -30,7 +29,7 @@ public class button_activity extends ComplicationProviderService {
                 getSharedPreferences(ComplicationToggleReceiver.PREFERENCES_NAME, 0);
         SharedPreferences.Editor editor = preferences.edit();
 
-        editor.putString("COMP_NAME", "WEARBTTN");
+        editor.putString("COMP_NAME", "ASSISTANT");
         editor.apply();
         int state =
                 preferences.getInt(
@@ -44,7 +43,7 @@ public class button_activity extends ComplicationProviderService {
                         new ComplicationData.Builder(type)
                                 .setIcon(
                                         Icon.createWithResource(
-                                                this, R.drawable.ic_start_launcher))
+                                                this, R.drawable.ic_start_assistant))
                                 .setTapAction(complicationTogglePendingIntent)
                                 .build();
                 break;
@@ -54,10 +53,10 @@ public class button_activity extends ComplicationProviderService {
                 // ambient mode.
                 data =
                         new ComplicationData.Builder(type)
-                                .setIcon(Icon.createWithResource(this, R.drawable.ic_start_launcher))
+                                .setIcon(Icon.createWithResource(this, R.drawable.ic_start_assistant))
                                 .setBurnInProtectionIcon(
                                         Icon.createWithResource(
-                                                this, R.drawable.ic_start_launcher))
+                                                this, R.drawable.ic_start_assistant))
                                 .setTapAction(complicationTogglePendingIntent)
                                 .build();
                 break;
@@ -66,7 +65,7 @@ public class button_activity extends ComplicationProviderService {
                         new ComplicationData.Builder(type)
                                 .setIcon(
                                         Icon.createWithResource(
-                                                this, R.drawable.ic_start_launcher))
+                                                this, R.drawable.ic_start_assistant))
                                 .setTapAction(complicationTogglePendingIntent)
                                 .build();
                 break;
